@@ -1,7 +1,7 @@
 import { FETCH_BOOKS_FAILURE, FETCH_BOOKS_START, FETCH_BOOKS_SUCESS } from "./types"
 
 const initialState = {
-    book: [],
+    books: [],
     isFetching: false,
     errorMsg: "",
     
@@ -18,14 +18,14 @@ const bookItemReducer = (state = initialState, action) => {
         return {
             ...state,
             isFetching: false,
-            book: action.payload
+            books: action.payload
         }
         case FETCH_BOOKS_FAILURE: 
         return {
             ...state,
             isFetching: false,
             errorMsg: action.payload,
-            book: []
+            books: []
         }
         default:
             return state
