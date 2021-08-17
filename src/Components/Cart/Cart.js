@@ -3,6 +3,7 @@ import React from 'react'
 
 const useStyles = makeStyles({
     cartComp: {
+        height: "100vh",
         borderLeft: "1px solid #bdbdbd"
     }
 })
