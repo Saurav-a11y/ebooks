@@ -9,17 +9,27 @@ const useStyles = makeStyles({
     paddingTop: 16,
   },
 });
-export const BookList = () => {
+export const BookList = ({ searchItem }) => {
   const classes = useStyles();
   const { books } = useSelector((state) => state.bookReducer);
-  console.log("show books", books);
+
+  let data;
+
+  if (searchItem === "") {
+    data = books;
+  } else {
+    data = books.filter((book) =>
+      book["name "].toLowerCase().includes(searchItem.toLowerCase())
+    );
+  }
+
   return (
     <div className={classes.bookListComp}>
       <Grid container spacing={3}>
         {books && books.length !== 0
-          ? books.slice(0, 5).map((book) => (
+          ? data.map((book) => (
               <Grid item xs={3}>
-                <BookCardItem book={book} />
+                <BookCardItem book={book} key={book.id} />
               </Grid>
             ))
           : ""}

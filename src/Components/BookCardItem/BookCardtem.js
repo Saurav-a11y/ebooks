@@ -14,7 +14,6 @@ const useStyles = makeStyles({
 
 export const BookCardItem = ({book}) => {
     const classes = useStyles()
-    console.log("show book name", book.name);
     return (
         <Card>
             <CardActionArea>
@@ -26,7 +25,7 @@ export const BookCardItem = ({book}) => {
                 <CardContent className={classes.cardContent}>
                 <div className={classes.name}>
                         <Typography>Name:</Typography>
-                    <Typography> {`${book.name} `} </Typography>
+                    <Typography> {`${book['name ']} `} </Typography>
                     </div>
                     <div className={classes.price}>
                         <Typography>Price:</Typography>
