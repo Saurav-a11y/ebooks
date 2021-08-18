@@ -13,8 +13,8 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCartItem } from "../Redux/Cart/cartAction";
-import { totalPrice } from "../Redux/Cart/CartFunction";
+import { addToCart, deleteCartItem, removeItemCart } from "../Redux/Cart/cartAction";
+import { totalAmount, totalPrice } from "../Redux/Cart/CartFunction";
 
 // import Fade from '@material-ui/core/Fade';
 
@@ -55,16 +55,42 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: 30,
       flexGrow: 1,
       display: "flex",
+      alignItems: "center",
+      // justifyContent: "space-around"
     },
   },
+
   cartItemGenre: {
     fontSize: 10,
   },
+  cartItemTitleComp: {
+    flexGrow: 1,
+    minWidth: "40%",
+  },
+  cartPrice: {
+    flexGrow: 2,
+  },
+  cartQtyComp: {
+    flexGrow: 3,
+    display: "flex",
+  },
+  cartTotalPrice: {
+    flexGrow: 4,
+  },
+  arrow: {
+    cursor: "pointer",
+    marginLeft: 10,
+  },
+  totalAmt: {
+    marginTop: 20,
+    display: "flex",
+    justifyContent: "flex-end"
+  }
 }));
 
 export const Cart = () => {
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const { cartItems } = useSelector((state) => state.cartReducer);
   const handleOpen = () => {
@@ -76,8 +102,8 @@ export const Cart = () => {
   };
 
   const deleteItem = (itemId) => {
-    dispatch(deleteCartItem(itemId))
-  }
+    dispatch(deleteCartItem(itemId));
+  };
 
   return (
     <div>
@@ -106,39 +132,70 @@ export const Cart = () => {
                 {" "}
                 <Typography className={classes.cartTottalNum}>
                   {" "}
-                  Total Items:{" "}
+                  Total Items: {cartItems.length}
                 </Typography>
                 {cartItems.map((item) => (
                   <Grid container spacing={4}>
                     <Grid item xs={12}>
                       <Card className={classes.cardCartItem} key={item.id}>
-                        <Avatar variant="rounded" alt="cart-image" src={item.image} />
+                        <Avatar
+                          variant="rounded"
+                          alt="cart-image"
+                          src={item.image}
+                        />
                         <CardContent>
-                          <div>
+                          <div className={classes.cartItemTitleComp}>
                             <Typography className={classes.cartItemTitle}>
                               {" "}
-                              {item['name ']}
+                              {item["name "]}
                             </Typography>
                             <Typography className={classes.cartItemGenre}>
                               {" "}
                               {item.genre}
                             </Typography>
                           </div>
-                          <div>
-                            <Typography>Qty: {item.quantity} </Typography>
-                          </div>
-                          <div>
+
+                          {/* <div className={classes.cartPrice}>
                             <Typography>Price</Typography>
-                            <Typography> Rs: {totalPrice(item.price, item.quantity )} </Typography>
+                          </div> */}
+                          <div className={classes.cartQtyComp}>
+                            <Typography>Qty:</Typography>
+                            <div className={classes.arrow} onClick={() => dispatch(removeItemCart(item))}> &#10094; </div>
+                            <span style={{ marginLeft: 8 }}>
+                              {" "}
+                              {item.quantity}{" "}
+                            </span>
+                            <div
+                              className={classes.arrow}
+                              onClick={() => dispatch(addToCart(item))}
+                            >
+                              {" "}
+                              &#10095;{" "}
+                            </div>
+                          </div>
+                          <div className={classes.cartTotalPrice}>
+                            <Typography>
+                              {" "}
+                              Rs: {totalPrice(item.price, item.quantity)}{" "}
+                            </Typography>
                           </div>
                         </CardContent>
-                        <IconButton aria-label="delete" onClick={() => deleteItem(item.id)}>
+                        <IconButton
+                          aria-label="delete"
+                          onClick={() => deleteItem(item.id)}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </Card>
                     </Grid>
                   </Grid>
                 ))}
+                <div className={classes.totalAmt}>
+                  <Typography>Total Amount</Typography>
+                  <Typography> {
+                    `Rs: ${totalAmount(cartItems)}`
+                    }  </Typography>
+                </div>
               </>
             ) : (
               <Typography variant="h4"> Your cart is empty</Typography>

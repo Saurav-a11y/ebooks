@@ -1,5 +1,6 @@
-import { addItemToCart } from "./CartFunction"
-import { ADD_TO_CART, DELETE_CART_ITEM } from "./types"
+
+import { addItemToCart, removeCartItemQuantity } from "./CartFunction"
+import { ADD_TO_CART, DELETE_CART_ITEM, REMOVE_ITEM_CART } from "./types"
 
 const initialState = {
     cartItems: []
@@ -17,6 +18,11 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 cartItems: state.cartItems.filter(data => data.id !== action.payload)
             }
+            case REMOVE_ITEM_CART:
+                return {
+                    ...state,
+                    cartItems: removeCartItemQuantity(state.cartItems, action.payload)
+                }
         default :
         return state
         
