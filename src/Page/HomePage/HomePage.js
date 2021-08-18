@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BookList } from "../../Components/BookList/BookList";
 import { Cart } from "../../Components/Cart/Cart";
+import { DropDownFilter } from "../../Components/DropDownFilter/DropDownFilter";
 import { fetchBook } from "../../Components/Redux/Book/bookAction";
 import { TextInput } from "../../Components/TextInput/TextInput";
 
@@ -13,6 +14,8 @@ const useStyles = makeStyles({
   homeComp: {
     paddingTop: 20,
     height: "100vh",
+    display: "flex",
+    flexDirection: 'column'
   },
 });
 
@@ -36,6 +39,7 @@ export const HomePage = () => {
     <div>
       <Container className={classes.homeComp} maxWidth="lg">
         <TextInput onChange={onChange} />
+          <DropDownFilter />
             <BookList searchItem={searchItem} />
           
             {/* <Cart /> */}
