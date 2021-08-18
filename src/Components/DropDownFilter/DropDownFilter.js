@@ -32,7 +32,7 @@ export const DropDownFilter = () => {
       >
         Filter by:
       </Button>
-      <ClickAwayListener>
+      
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}
@@ -44,7 +44,7 @@ export const DropDownFilter = () => {
           <MenuItem onClick={handleClose}>My account</MenuItem>
           <MenuItem onClick={handleClose}>Logout</MenuItem>
         </Menu>
-      </ClickAwayListener>
+      
     </div>
   );
 };

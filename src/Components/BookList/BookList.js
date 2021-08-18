@@ -1,8 +1,9 @@
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BookCardItem } from "../BookCardItem/BookCardtem";
+import { addToCart } from "../Redux/Cart/cartAction";
 
 const useStyles = makeStyles({
   bookListComp: {
@@ -11,6 +12,9 @@ const useStyles = makeStyles({
 });
 export const BookList = ({ searchItem }) => {
   const classes = useStyles();
+  const dispatch = useDispatch()
+  const [addCart, setAddCart] = useState([])
+
   const { books } = useSelector((state) => state.bookReducer);
 
   let data;
@@ -23,13 +27,19 @@ export const BookList = ({ searchItem }) => {
     );
   }
 
+    const handleClick = (book) => {
+      //  setAddCart((prevState) => [...prevState, book]) 
+      dispatch(addToCart(book))
+
+  };
+console.log("show book ", addCart);
   return (
     <div className={classes.bookListComp}>
       <Grid container spacing={3}>
         {books && books.length !== 0
           ? data.map((book) => (
-              <Grid item xs={3}>
-                <BookCardItem book={book} key={book.id} />
+              <Grid item xs={3} key={book.id}>
+                <BookCardItem book={book} handleClick={handleClick} />
               </Grid>
             ))
           : ""}
