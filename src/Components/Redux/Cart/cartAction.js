@@ -1,4 +1,4 @@
-import { ADD_TO_CART } from "./types"
+import { ADD_TO_CART, DELETE_CART_ITEM } from "./types"
 
 export const addToCart = (items) => (dispatch, getState) => {
     const {cartItems} = getState().cartReducer
@@ -14,5 +14,12 @@ export const addToCart = (items) => (dispatch, getState) => {
     dispatch({
         type: ADD_TO_CART,
         payload: items
+    })
+}
+
+export const deleteCartItem = (itemId) => (dispatch) => {
+    dispatch({
+        type: DELETE_CART_ITEM,
+        payload: itemId
     })
 }
