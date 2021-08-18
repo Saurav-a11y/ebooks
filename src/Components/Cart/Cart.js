@@ -14,6 +14,7 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCartItem } from "../Redux/Cart/cartAction";
+import { totalPrice } from "../Redux/Cart/CartFunction";
 
 // import Fade from '@material-ui/core/Fade';
 
@@ -125,6 +126,10 @@ export const Cart = () => {
                           </div>
                           <div>
                             <Typography>Qty: {item.quantity} </Typography>
+                          </div>
+                          <div>
+                            <Typography>Price</Typography>
+                            <Typography> Rs: {totalPrice(item.price, item.quantity )} </Typography>
                           </div>
                         </CardContent>
                         <IconButton aria-label="delete" onClick={() => deleteItem(item.id)}>

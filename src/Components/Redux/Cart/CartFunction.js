@@ -19,6 +19,16 @@ export const addItemToCart = (
         ...cartItemToAdd,
         quantity: 1,
         
+        
       },
     ];
   };
+
+  export const totalPrice = (itemPrice, qty) => {
+    let price = itemPrice.substring(1) // given fixed rate to conver in ruppes
+    if(qty === 1) {
+      return Math.round(price * 100 )
+    } else {
+      return Math.round(price * qty * 100) 
+    }
+  }
