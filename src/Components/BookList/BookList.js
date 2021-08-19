@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid, Snackbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,14 +9,25 @@ const useStyles = makeStyles({
   bookListComp: {
     paddingTop: 16,
   },
+  snackbar: {
+    "& .MuiPaper-root": {
+      backgroundColor: "#4caf50"
+    }
+   
+  }
 });
 export const BookList = ({ searchItem, selectedGenre }) => {
   const classes = useStyles();
   const dispatch = useDispatch()
   const [addCart, setAddCart] = useState([])
+  const [open, setOpen] = useState({
+    open: false,
+    msg: ""
+  })
+  const [addedGenres, setAddedGenres] = useState([])
 
-  console.log("get selcted genre", selectedGenre);
   const { books } = useSelector((state) => state.bookReducer);
+  const { cartItems } = useSelector((state) => state.cartReducer);
 
   let data = books
 
@@ -33,10 +44,43 @@ export const BookList = ({ searchItem, selectedGenre }) => {
 
     const handleClick = (book) => {
       //  setAddCart((prevState) => [...prevState, book]) 
-      dispatch(addToCart(book))
+      let bookGenres = [];
+            if (book.genre && book.genre !== "(no genres listed)") {
+              bookGenres = book.genre.split('|').filter(g => !addedGenres.includes(g));
+            }
+            console.log("genres", bookGenres);
+            const newAddedgenre = [...addedGenres, ...bookGenres]
+      if(newAddedgenre.length > 5) {
+        // alert("canot add")
+        setOpen({
+          open: true,
+          msg: `Cannot add more than 5 genres`
+        })
+      } else {
+        dispatch(addToCart(book))
+        setOpen({
+          open: true,
+          msg: `${cartItems.length} items added to your cart`
+        })
+      setAddedGenres(newAddedgenre)
+      }
 
+      
   };
+  console.log("new added genresss ", addedGenres);
 console.log("show book ", addCart);
+
+const handleCloseSnackbar = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+
+  setOpen({
+    open: false,
+    msg: ``
+  })
+};
+
   return (
     <div className={classes.bookListComp}>
       <Grid container spacing={3}>
@@ -48,6 +92,12 @@ console.log("show book ", addCart);
             ))
           : ""}
       </Grid>
+      <Snackbar  
+      anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+         open={open.open} message={open.msg}   onClose={handleCloseSnackbar} className={classes.snackbar} autoHideDuration={6000}/>
     </div>
   );
 };

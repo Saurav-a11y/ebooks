@@ -4,6 +4,7 @@ const initialState = {
     books: [],
     isFetching: false,
     errorMsg: "",
+    genres: []
     
 }
 
@@ -18,7 +19,7 @@ const bookItemReducer = (state = initialState, action) => {
         return {
             ...state,
             isFetching: false,
-            books: action.payload
+             ...action.payload
         }
         case FETCH_BOOKS_FAILURE: 
         return {

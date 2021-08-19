@@ -15,6 +15,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteCartItem, removeItemCart } from "../../Redux/Cart/cartAction";
 import { totalAmount, totalPrice } from "../../Redux/Cart/CartFunction";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 // import Fade from '@material-ui/core/Fade';
 
@@ -58,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       // justifyContent: "space-around"
     },
+    
   },
 
   cartItemGenre: {
@@ -75,16 +78,26 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   cartTotalPrice: {
-    flexGrow: 4,
+    flexGrow: 5,
   },
   arrow: {
     cursor: "pointer",
     marginLeft: 10,
+    padding: 0
   },
   totalAmt: {
     marginTop: 20,
     display: "flex",
     justifyContent: "flex-end"
+  },
+  stockDetails: {
+    flexGrow: 4,
+    "& .MuiTypography-root" : {
+      fontSize: 12,
+      color: "#f44336"
+      
+
+    }
   }
 }));
 
@@ -155,23 +168,26 @@ export const Cart = () => {
                             </Typography>
                           </div>
 
-                          {/* <div className={classes.cartPrice}>
-                            <Typography>Price</Typography>
-                          </div> */}
+                         
                           <div className={classes.cartQtyComp}>
                             <Typography>Qty:</Typography>
-                            <div className={classes.arrow} onClick={() => dispatch(removeItemCart(item))}> &#10094; </div>
-                            <span style={{ marginLeft: 8 }}>
+                            <IconButton className={classes.arrow} onClick={() => dispatch(removeItemCart(item))}>
+                              <ArrowBackIosIcon />
+                            </IconButton>
+                            <Typography >
                               {" "}
                               {item.quantity}{" "}
-                            </span>
-                            <div
-                              className={classes.arrow}
-                              onClick={() => dispatch(addToCart(item))}
-                            >
-                              {" "}
-                              &#10095;{" "}
-                            </div>
+                            </Typography>
+                            
+                            <IconButton className={classes.arrow} onClick={() => dispatch(addToCart(item))}>
+                              <ArrowForwardIosIcon />
+                            </IconButton>
+                          </div>
+                          <div className={classes.stockDetails}>
+                            {item.stock < item.quantity &&  
+                              <Typography>Stock limit exceed</Typography>
+
+                            }
                           </div>
                           <div className={classes.cartTotalPrice}>
                             <Typography>
@@ -196,6 +212,7 @@ export const Cart = () => {
                     `Rs: ${totalAmount(cartItems)}`
                     }  </Typography>
                 </div>
+              
               </>
             ) : (
               <Typography variant="h4"> Your cart is empty</Typography>

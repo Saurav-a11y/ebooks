@@ -8,9 +8,19 @@ export const fetchBook = () => dispatch => {
     })
     axios.get(`https://book-set-task.herokuapp.com/api/list_books`)
     .then((response) => {
+        const genres = response.data.reduce((init, res) => {
+            let genres = [];
+            if (res.genre && res.genre !== "(no genres listed)") {
+              genres = res.genre.split('|').filter(g => !init.includes(g));
+            }
+            init = [...init, ...genres];
+            return init;
+          }, [])
+
+        const resData = {books: response.data, genres: genres}
         dispatch({
             type: FETCH_BOOKS_SUCESS,
-            payload: response.data
+            payload: resData
         })
     })
     .catch((error) => {

@@ -55,7 +55,7 @@ export const BookCardItem = ({ book, handleClick }) => {
         </div>
       </CardContent>
       <CardActions >
-        <Button onClick={() => handleClick(book)}  variant="outlined">
+        <Button onClick={() => handleClick(book)}  variant="outlined" disabled={book.stock === 0 ? true: false}>
           Add to Cart
         </Button>
       </CardActions>

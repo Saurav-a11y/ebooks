@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, ClickAwayListener, Menu, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { useSelector } from "react-redux";
 
 const UseStyles = makeStyles({
   dropDownFilter: {
@@ -13,6 +14,10 @@ const UseStyles = makeStyles({
 export const DropDownFilter = ({getGenre}) => {
   const classes = UseStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const {genres} = useSelector((state) => state.bookReducer)
+
+  console.log("show book ", genres);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -45,10 +50,13 @@ export const DropDownFilter = ({getGenre}) => {
           onClose={handleClose}
           
         >
-          <MenuItem onClick={() => getGenre("comedy")}>Comedy</MenuItem>
-          <MenuItem onClick={() => getGenre("action")}>Action</MenuItem>
-          <MenuItem onClick={() => getGenre("drama")}>Drama</MenuItem>
-          <MenuItem onClick={() => getGenre("crime")}>Crime</MenuItem>
+          {
+            genres.map(g => 
+           <MenuItem onClick={() => getGenre(g)}> {g} </MenuItem>
+              
+              )
+          }
+         
         </Menu>
       
     </div>
