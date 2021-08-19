@@ -4,11 +4,10 @@ import { makeStyles } from "@material-ui/styles";
 import { useSelector } from "react-redux";
 
 const UseStyles = makeStyles({
-  dropDownFilter: {
-    marginTop: 20,
-    display: "flex",
-    justifyContent: "flex-end",
-  },
+  
+  dropDownBtn: {
+    textTransform: 'capitalize'
+  }
 });
 
 export const DropDownFilter = ({getGenre}) => {
@@ -38,6 +37,7 @@ export const DropDownFilter = ({getGenre}) => {
         aria-haspopup="true"
         onClick={handleClick}
         variant="outlined"
+        className={classes.dropDownBtn}
       >
         Filter by:
       </Button>
@@ -52,7 +52,7 @@ export const DropDownFilter = ({getGenre}) => {
         >
           {
             genres.map(g => 
-           <MenuItem onClick={() => getGenre(g)}> {g} </MenuItem>
+           <MenuItem key={g} onClick={() => getGenre(g)}> {g} </MenuItem>
               
               )
           }

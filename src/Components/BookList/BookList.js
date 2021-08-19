@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   },
   snackbar: {
     "& .MuiPaper-root": {
-      backgroundColor: "#4caf50"
+      backgroundColor: "transparent"
     }
    
   }
@@ -22,7 +22,8 @@ export const BookList = ({ searchItem, selectedGenre }) => {
   const [addCart, setAddCart] = useState([])
   const [open, setOpen] = useState({
     open: false,
-    msg: ""
+    msg: "",
+    color: ""
   })
   const [addedGenres, setAddedGenres] = useState([])
 
@@ -39,7 +40,7 @@ export const BookList = ({ searchItem, selectedGenre }) => {
     data = data.filter((book) =>
     book.genre.toLowerCase().includes(selectedGenre.toLowerCase()))
   }
-   console.log("show search item", searchItem);
+   console.log("show search item", cartItems);
     
 
     const handleClick = (book) => {
@@ -48,19 +49,22 @@ export const BookList = ({ searchItem, selectedGenre }) => {
             if (book.genre && book.genre !== "(no genres listed)") {
               bookGenres = book.genre.split('|').filter(g => !addedGenres.includes(g));
             }
-            console.log("genres", bookGenres);
+            
             const newAddedgenre = [...addedGenres, ...bookGenres]
-      if(newAddedgenre.length > 5) {
+            console.log("genres", newAddedgenre);
+      if(newAddedgenre && newAddedgenre.length > 5) {
         // alert("canot add")
         setOpen({
           open: true,
-          msg: `Cannot add more than 5 genres`
+          msg: `Cannot add more than 5 genres`,
+          color: "#f44336"
         })
       } else {
-        dispatch(addToCart(book))
+         dispatch(addToCart(book))
         setOpen({
           open: true,
-          msg: `${cartItems.length} items added to your cart`
+          msg: `Items added to your cart`,
+          color: "#4caf50"
         })
       setAddedGenres(newAddedgenre)
       }
@@ -92,12 +96,13 @@ const handleCloseSnackbar = (event, reason) => {
             ))
           : ""}
       </Grid>
-      <Snackbar  
+      <Snackbar 
+      style={{backgroundColor: open.color}} 
       anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right',
         }}
-         open={open.open} message={open.msg}   onClose={handleCloseSnackbar} className={classes.snackbar} autoHideDuration={6000}/>
+         open={open.open} message={open.msg}   onClose={handleCloseSnackbar} className={classes.snackbar} autoHideDuration={1000}/>
     </div>
   );
 };

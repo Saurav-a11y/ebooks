@@ -1,7 +1,6 @@
 import {
   Button,
   Card,
-  CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
@@ -9,24 +8,41 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import {convertToNrs} from '../../utils'
-
+import { convertToNrs } from "../../utils";
 
 const useStyles = makeStyles({
+  card: {
+    minHeight: 600,
+  },
   cardContent: {
     "& div": {
       display: "flex",
+      marginBottom: 10,
+      "& .MuiTypography-root": {
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        "&:first-child": {
+          fontWeight: 600,
+          marginRight: 10,
+        },
+      },
     },
   },
-  price: {},
+  cardActions: {
+    justifyContent: "center",
+    "& .MuiButtonBase-root": {
+      backgroundColor: "#2196f3",
+      color: "#fff",
+      
+    },
+  },
 });
 
 export const BookCardItem = ({ book, handleClick }) => {
   const classes = useStyles();
-  
 
   return (
-    <Card>
+    <Card className={classes.card}>
       <CardMedia component="img" alt="book-item" image={book.image} />
       <CardContent className={classes.cardContent}>
         <div className={classes.name}>
@@ -51,11 +67,17 @@ export const BookCardItem = ({ book, handleClick }) => {
         </div>
         <div className={classes.pubDate}>
           <Typography>Published Date:</Typography>
-          <Typography> {`${book.published_date} `} </Typography>
+          <Typography>
+            {" "}
+            {`${new Date(book.published_date).toLocaleDateString()} `}{" "}
+          </Typography>
         </div>
       </CardContent>
-      <CardActions >
-        <Button onClick={() => handleClick(book)}  variant="outlined" disabled={book.stock === 0 ? true: false}>
+      <CardActions className={classes.cardActions}>
+        <Button
+          onClick={() => handleClick(book)}
+          disabled={book.stock === 0 ? true : false}
+        >
           Add to Cart
         </Button>
       </CardActions>

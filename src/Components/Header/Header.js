@@ -5,14 +5,16 @@ import { Cart } from "../Cart/Cart";
 
 const useStyles = makeStyles({
   appBar: {
-    backgroundColor: "red",
+    backgroundColor: "#2196f3",
   },
   appToolBar: {
     
     justifyContent: "space-between"
   },
   
-  
+  title: {
+    margin: "auto"
+  }
 });
 
 export const Header = () => {
@@ -25,7 +27,7 @@ export const Header = () => {
   }
 
   return (
-    <AppBar className={classes.appBar} position="relative">
+    <AppBar className={classes.appBar} position="fixed">
       <Toolbar aria-label="navbar" className={classes.appToolBar}>
         <Typography className={classes.title}>E-Books</Typography>
         <div>
