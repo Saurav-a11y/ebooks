@@ -10,7 +10,7 @@ const UseStyles = makeStyles({
   },
 });
 
-export const DropDownFilter = () => {
+export const DropDownFilter = ({getGenre}) => {
   const classes = UseStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -21,6 +21,10 @@ export const DropDownFilter = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  // const selectGenre = (genre) => {
+  //   console.log(genre)
+  // }
 
   return (
     <div className={classes.dropDownFilter}>
@@ -39,10 +43,12 @@ export const DropDownFilter = () => {
           keepMounted
           open={Boolean(anchorEl)}
           onClose={handleClose}
+          
         >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
+          <MenuItem onClick={() => getGenre("comedy")}>Comedy</MenuItem>
+          <MenuItem onClick={() => getGenre("action")}>Action</MenuItem>
+          <MenuItem onClick={() => getGenre("drama")}>Drama</MenuItem>
+          <MenuItem onClick={() => getGenre("crime")}>Crime</MenuItem>
         </Menu>
       
     </div>

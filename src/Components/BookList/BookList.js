@@ -10,22 +10,26 @@ const useStyles = makeStyles({
     paddingTop: 16,
   },
 });
-export const BookList = ({ searchItem }) => {
+export const BookList = ({ searchItem, selectedGenre }) => {
   const classes = useStyles();
   const dispatch = useDispatch()
   const [addCart, setAddCart] = useState([])
 
+  console.log("get selcted genre", selectedGenre);
   const { books } = useSelector((state) => state.bookReducer);
 
-  let data;
+  let data = books
 
-  if (searchItem === "") {
-    data = books;
-  } else {
-    data = books.filter((book) =>
-      book["name "].toLowerCase().includes(searchItem.toLowerCase())
-    );
+  if(searchItem !== "") {
+    data = data.filter((book) =>
+    book["name "].toLowerCase().includes(searchItem.toLowerCase()))
   }
+  if(selectedGenre !== "") {
+    data = data.filter((book) =>
+    book.genre.toLowerCase().includes(selectedGenre.toLowerCase()))
+  }
+   console.log("show search item", searchItem);
+    
 
     const handleClick = (book) => {
       //  setAddCart((prevState) => [...prevState, book]) 

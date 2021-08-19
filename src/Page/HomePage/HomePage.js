@@ -25,6 +25,7 @@ export const HomePage = () => {
   const dispatch = useDispatch()
 
   const [searchItem, setSearchItem] = useState("")
+  const [selectedGenre, setSelectedGenre] = useState("")
 
   const onChange = (e) => { // search book from api
     // console.log(("show value", e.target.value));
@@ -35,12 +36,18 @@ export const HomePage = () => {
     dispatch(fetchBook()) 
   }, [])
 
+
+
   return (
     <div>
       <Container className={classes.homeComp} maxWidth="lg">
         <TextInput onChange={onChange} />
-          <DropDownFilter />
-            <BookList searchItem={searchItem} />
+          <DropDownFilter getGenre={(genre) => 
+          {
+            setSelectedGenre(genre)
+          }
+          } />
+            <BookList searchItem={searchItem} selectedGenre={selectedGenre} />
           
             {/* <Cart /> */}
         

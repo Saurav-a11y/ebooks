@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
+import {convertToNrs} from '../../utils'
 
 
 const useStyles = makeStyles({
@@ -34,7 +35,7 @@ export const BookCardItem = ({ book, handleClick }) => {
         </div>
         <div className={classes.price}>
           <Typography>Price:</Typography>
-          <Typography> {`${book.price} `} </Typography>
+          <Typography> {`Rs: ${convertToNrs(book.price)} `} </Typography>
         </div>
         <div className={classes.author}>
           <Typography>Author:</Typography>
@@ -43,6 +44,14 @@ export const BookCardItem = ({ book, handleClick }) => {
         <div className={classes.stock}>
           <Typography>Stock:</Typography>
           <Typography> {`${book.stock} `} </Typography>
+        </div>
+        <div className={classes.genre}>
+          <Typography>Genre:</Typography>
+          <Typography> {`${book.genre} `} </Typography>
+        </div>
+        <div className={classes.pubDate}>
+          <Typography>Published Date:</Typography>
+          <Typography> {`${book.published_date} `} </Typography>
         </div>
       </CardContent>
       <CardActions >
