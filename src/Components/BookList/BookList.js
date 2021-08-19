@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BookCardItem } from "../BookCardItem/BookCardtem";
-import { addToCart } from "../Redux/Cart/cartAction";
+import { addToCart } from "../../Redux/Cart/cartAction";
 
 const useStyles = makeStyles({
   bookListComp: {

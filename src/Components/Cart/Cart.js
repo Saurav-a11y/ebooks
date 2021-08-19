@@ -13,8 +13,8 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, deleteCartItem, removeItemCart } from "../Redux/Cart/cartAction";
-import { totalAmount, totalPrice } from "../Redux/Cart/CartFunction";
+import { addToCart, deleteCartItem, removeItemCart } from "../../Redux/Cart/cartAction";
+import { totalAmount, totalPrice } from "../../Redux/Cart/CartFunction";
 
 // import Fade from '@material-ui/core/Fade';
 

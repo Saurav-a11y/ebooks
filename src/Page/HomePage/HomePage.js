@@ -7,8 +7,8 @@ import { useDispatch } from "react-redux";
 import { BookList } from "../../Components/BookList/BookList";
 import { Cart } from "../../Components/Cart/Cart";
 import { DropDownFilter } from "../../Components/DropDownFilter/DropDownFilter";
-import { fetchBook } from "../../Components/Redux/Book/bookAction";
 import { TextInput } from "../../Components/TextInput/TextInput";
+import {fetchBook} from '../../Redux/Book/bookAction'
 
 const useStyles = makeStyles({
   homeComp: {
